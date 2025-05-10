@@ -4,13 +4,13 @@ import logging
 logger = logging.getLogger(__name__)
 from util.human_readable import humanbytes
 from databse import db
-from pyrogram import filters, enums
+from pyrogram import filters, enums, Client
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.errors import UserNotParticipant
 from util.file_properties import get_name, get_hash, get_media_file_size
 from pyrogram.types import ReplyKeyboardMarkup
 
-@StreamBot.on_message(filters.command('start') & filters.private)
+@Client.on_message(filters.command('start') & filters.private)
 async def start(b, m):
     if not await db.is_user_exist(m.from_user.id):
         await db.add_user(m.from_user.id)
@@ -140,7 +140,7 @@ async def start(b, m):
         )
 
 
-@StreamBot.on_message(filters.command('help') & filters.private)
+@Client.on_message(filters.command('help') & filters.private)
 async def help_handler(bot, message):
     if not await db.is_user_exist(message.from_user.id):
         await db.add_user(message.from_user.id)
@@ -198,7 +198,7 @@ async def help_handler(bot, message):
                     )
                 )
 
-@StreamBot.on_message(filters.command('about') & filters.private)
+@Client.on_message(filters.command('about') & filters.private)
 async def about_handler(bot, message):
     if not await db.is_user_exist(message.from_user.id):
         await db.add_user(message.from_user.id)
