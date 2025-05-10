@@ -1,10 +1,20 @@
 from pyrogram import Client, filters
 import datetime
 import time
-from database.users_chats_db import db
+from database import db
 from info import ADMINS
 from utils import broadcast_messages, broadcast_messages_group
 import asyncio
+
+
+
+@StreamBot.on_message(filters.command("users") & filters.private)
+async def sts(c: Client, m: Message):
+    user_id=m.from_user.id 
+    if user_id in OWNER_ID:
+        total_users = await db.total_users_count()
+        await m.reply_text(text=f"Total Users in DB: {total_users}", quote=True)
+        
         
 @Client.on_message(filters.command("broadcast") & filters.user(ADMINS) & filters.reply)
 # https://t.me/GetTGLink/4178
