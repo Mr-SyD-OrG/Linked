@@ -2,14 +2,12 @@ import random
 from info import *
 import logging
 logger = logging.getLogger(__name__)
-from Adarsh.bot.plugins.stream import MY_PASS
-from Adarsh.utils.human_readable import humanbytes
-from Adarsh.utils.database import Database
+from util.human_readable import humanbytes
+from databse import db
 from pyrogram import filters, enums
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.errors import UserNotParticipant
-from Adarsh.utils.file_properties import get_name, get_hash, get_media_file_size
-db = Database(Var.DATABASE_URL, Var.name)
+from util.file_properties import get_name, get_hash, get_media_file_size
 from pyrogram.types import ReplyKeyboardMarkup
 
 @StreamBot.on_message(filters.command('start') & filters.private)
